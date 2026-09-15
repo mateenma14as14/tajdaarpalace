@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Tajdar Marquee — design tokens
+   Soft UI: warm cream ground, blush pinks, muted gold accents,
+   low-contrast shadows and generous radii.
+------------------------------------------------------------------- */
+@theme {
+  /* Warm neutral ground */
+  --color-cream-50: #fdfbf8;
+  --color-cream-100: #faf5ef;
+  --color-cream-200: #f3ebe1;
+  --color-cream-300: #e8dccd;
+
+  /* Blush / rose — primary brand */
+  --color-blush-50: #fdf6f5;
+  --color-blush-100: #fbeae7;
+  --color-blush-200: #f6d5cf;
+  --color-blush-300: #eeb5ac;
+  --color-blush-400: #e08f83;
+  --color-rose-400: #cf7f8f;
+  --color-rose-500: #b8697e;
+  --color-rose-600: #9d5468;
+  --color-rose-700: #7d4253;
+
+  /* Gold — accent, used sparingly for rules, icons and emphasis */
+  --color-gold-200: #f2e4bd;
+  --color-gold-300: #e9d29a;
+  --color-gold-400: #dcb968;
+  --color-gold-500: #c9a227;
+  --color-gold-600: #a8851d;
+
+  /* Ink — text */
+  --color-ink-400: #8a7f7a;
+  --color-ink-500: #6b605b;
+  --color-ink-700: #4a403c;
+  --color-ink-900: #2b2523;
+
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  --shadow-soft: 0 2px 8px -2px rgb(139 105 100 / 0.08), 0 8px 24px -8px rgb(139 105 100 / 0.10);
+  --shadow-soft-lg: 0 4px 16px -4px rgb(139 105 100 / 0.10), 0 20px 48px -16px rgb(139 105 100 / 0.16);
+  --shadow-inset-soft: inset 0 1px 2px 0 rgb(255 255 255 / 0.9);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-ink-700);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink-900);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--color-blush-200);
+    color: var(--color-ink-900);
+  }
+
+  /* Focus ring — visible for keyboard users, quiet for mouse users */
+  :focus-visible {
+    outline: 2px solid var(--color-rose-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Small caps label used above section headings */
+  .eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-rose-500);
+    font-weight: 400;
+  }
+
+  /* Thin gold rule with a diamond in the middle */
+  .rule-gold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--color-gold-400);
+  }
+  .rule-gold::before,
+  .rule-gold::after {
+    content: "";
+    height: 1px;
+    width: 2.5rem;
+    background: linear-gradient(to right, transparent, currentColor);
+  }
+  .rule-gold::after {
+    background: linear-gradient(to left, transparent, currentColor);
+  }
+
+  .soft-card {
+    background-color: #fff;
+    border: 1px solid var(--color-cream-200);
+    border-radius: var(--radius-4xl);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbar on horizontal scrollers while keeping them scrollable */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
