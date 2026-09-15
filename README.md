@@ -131,6 +131,21 @@ smoke/           Server-render + logic checks (npm run smoke)
 - The lightbox supports arrow keys and Escape, and moves focus to its close
   button when opened.
 
+## Private preview (password lock)
+
+Until launch, every visitor sees a password screen
+([src/components/PreviewGate.jsx](src/components/PreviewGate.jsx)); the site
+itself only downloads after the correct password is entered, and each browser
+stays unlocked afterwards.
+
+- **Launch:** set `PREVIEW_LOCK = false` in `PreviewGate.jsx` and delete the
+  `noindex, nofollow` robots tag from `index.html`.
+- **Change the password:** replace `PASSWORD_SHA256` with the hash printed by
+  `node -e "console.log(require('crypto').createHash('sha256').update('new-password').digest('hex'))"`.
+
+The check runs in the browser, so it keeps casual visitors and search engines
+out but is not real security. Don't put anything confidential behind it.
+
 ## Deploying
 
 The build output in `dist/` is static. On any host, add a rewrite so unknown
